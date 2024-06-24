@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://b16l7x3ar23st"]
+
+[ext_resource type="Script" path="res://scripts/ice_spear.gd" id="1_uu5hm"]
+[ext_resource type="Texture2D" uid="uid://c07hm26vn1cst" path="res://Textures/Items/Weapons/ice_spear.png" id="2_invpo"]
+[ext_resource type="AudioStream" uid="uid://d1pwdcysu1liw" path="res://Audio/SoundEffect/ice.wav" id="3_opybl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ey4wg"]
+size = Vector2(33.9411, 7.07107)
+
+[node name="IceSpear" type="Area2D" groups=["attack"]]
+top_level = true
+scale = Vector2(0.1, 0.1)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_uu5hm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -0.5)
+rotation = 0.785398
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_ey4wg")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_invpo")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_opybl")
+volume_db = -10.0
+pitch_scale = 5.0
+autoplay = true
+
+[connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]
